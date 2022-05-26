@@ -70,6 +70,8 @@ class SignupSerializer(serializers.ModelSerializer):
             email=email,
             password=password,
         )
+        # Create User profile
+        user.profile
         return user
 
 
