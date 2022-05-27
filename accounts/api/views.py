@@ -8,6 +8,7 @@ from accounts.api.serializers import (
     LoginSerializer,
     SignupSerializer,
 )
+
 from django.contrib.auth import (
     login as django_login,
     logout as django_logout,
