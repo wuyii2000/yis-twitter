@@ -7,7 +7,11 @@ from accounts.api.serializers import (
     UserSerializer,
     LoginSerializer,
     SignupSerializer,
+    UserSerializerWithProfile,
+    UserProfileSerializerForUpdate
 )
+from accounts.models import UserProfile
+from utils.permissions import IsObjectOwner
 
 from django.contrib.auth import (
     login as django_login,
@@ -22,7 +26,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAdminUser]
 
 
 class AccountViewSet(viewsets.ViewSet):
@@ -86,3 +90,12 @@ class AccountViewSet(viewsets.ViewSet):
             "success": True,
             "user": UserSerializer(user).data
         }, status=201)
+
+
+class UserProfileViewSet(
+    viewsets.GenericViewSet,
+    viewsets.mixins.UpdateModelMixin,
+):
+    queryset = UserProfile
+    permission_classes = (permissions.IsAuthenticated, IsObjectOwner,)
+    serializer_class = UserProfileSerializerForUpdate

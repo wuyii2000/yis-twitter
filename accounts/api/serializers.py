@@ -7,7 +7,7 @@ from accounts.models import UserProfile
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'email')
+        fields = ('id', 'username')
 
 
 class UserSerializerWithProfile(UserSerializer):
@@ -24,21 +24,19 @@ class UserSerializerWithProfile(UserSerializer):
         fields = ('id', 'username', 'nickname', 'avatar_url')
 
 
-class UserSerializerForTweet(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('id', 'username')
-
-
-class UserSerializerForLike(UserSerializerForTweet):
+class UserSerializerForTweet(UserSerializerWithProfile):
     pass
 
 
-class UserSerializerForComment(UserSerializerForTweet):
+class UserSerializerForLike(UserSerializerWithProfile):
     pass
 
 
-class UserSerializerForFriendship(UserSerializerForTweet):
+class UserSerializerForComment(UserSerializerWithProfile):
+    pass
+
+
+class UserSerializerForFriendship(UserSerializerWithProfile):
     pass
 
 
