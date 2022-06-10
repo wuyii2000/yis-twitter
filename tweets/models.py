@@ -4,6 +4,7 @@ from utils.time_helpers import utc_now
 from django.contrib.contenttypes.models import ContentType
 from likes.models import Like
 from tweets.constants import TweetPhotoStatus, TWEET_PHOTO_STATUS_CHOICES
+from accounts.services import UserService
 
 
 class Tweet(models.Model):
@@ -20,6 +21,10 @@ class Tweet(models.Model):
         index_together = (('user', 'created_at'),)
         ordering = ('user', '-created_at')
 
+    def __str__(self):
+        # for print(tweet instance)
+        return f'{self.created_at} {self.user}: {self.content}'
+
     @property
     def hours_to_now(self):
         # utc time has time zone information
@@ -32,9 +37,9 @@ class Tweet(models.Model):
             object_id=self.id,
         ).order_by('-created_at')
 
-    def __str__(self):
-        # for print(tweet instance)
-        return f'{self.created_at} {self.user}: {self.content}'
+    @property
+    def cached_user(self):
+        return UserService.get_user_through_cache(self.user_id)
 
 
 class TweetPhoto(models.Model):
