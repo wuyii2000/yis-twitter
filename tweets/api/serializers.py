@@ -10,7 +10,7 @@ from tweets.constants import TWEET_PHOTOS_UPLOAD_LIMIT
 
 
 class TweetSerializer(serializers.ModelSerializer):
-    user = UserSerializerForTweet()
+    user = UserSerializerForTweet(source='cached_user')
     has_liked = serializers.SerializerMethodField()
     likes_count = serializers.SerializerMethodField()
     comments_count = serializers.SerializerMethodField()
