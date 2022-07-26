@@ -38,3 +38,5 @@ class HBaseFollower(models.HBaseModel):
     class Meta:
         row_key = ('to_user_id', 'created_at')
         table_name = 'twitter_followers'
+
+
