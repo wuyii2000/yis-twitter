@@ -3,7 +3,7 @@ from django.core.cache import caches
 from friendships.models import Friendship
 from twitter.cache import FOLLOWINGS_PATTERN
 from gatekeeper.models import GateKeeper
-from friendships.hbase_models import HBaseFollowing, HBaseFollower
+from friendships.models import HBaseFollowing, HBaseFollower
 
 import time
 

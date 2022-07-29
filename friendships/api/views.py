@@ -14,7 +14,7 @@ from django.utils.decorators import method_decorator
 from friendships.services import FriendshipService
 from utils.paginations import EndlessPagination
 from gatekeeper.models import GateKeeper
-from friendships.hbase_models import HBaseFollower, HBaseFollowing
+from friendships.models import HBaseFollower, HBaseFollowing
 
 
 class FriendshipViewSet(viewsets.GenericViewSet):
