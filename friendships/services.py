@@ -43,7 +43,10 @@ class FriendshipService(object):
 
     @classmethod
     def get_follower_ids(cls, to_user_id):
-        friendships = Friendship.objects.filter(to_user_id=to_user_id)
+        if not GateKeeper.is_switch_on('switch_friendship_to_hbase'):
+            friendships = Friendship.objects.filter(to_user_id=to_user_id)
+        else:
+            friendships = HBaseFollower.filter(prefix=(to_user_id, None))
         return [friendship.from_user_id for friendship in friendships]
 
     @classmethod
